@@ -15,10 +15,13 @@ class CreateTumsaBursariesTable extends Migration
     {
         Schema::create('tumsa_bursaries', function (Blueprint $table) {
             $table->id();
-            $table->double('ammount');
-            $table->timestamps();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('admin_id')->unsigned();
+            $table->double('fee_balance');
+            $table->double('ammount_requested');
+            $table->double('ammount_awarded')->nullable();
+            $table->string('fee_statement');
+            $table->bigInteger('admin_id')->unsigned()->nullable();
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });

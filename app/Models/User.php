@@ -18,8 +18,18 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'sir_name',
+        'other_names',
         'email',
+        'phone_number',
+        'admission_number',
+        'gender',
+        'dob',
+        'residence',
+        'home_address',
+        'school_id',
+        'national_id',
+        'profile_photo',
         'password',
     ];
 
@@ -40,5 +50,37 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'dob' => 'datetime',
     ];
+
+    public function course()
+    {
+        return $this->hasOne(Course::class);
+    }
+
+    public function tumsa_bursary()
+    {
+        return $this->hasOne(TumsaBursary::class);
+    }
+
+
+    public function parent_status()
+    {
+        return $this->hasOne(ParentStatus::class);
+    }
+
+    public function other_info()
+    {
+        return $this->hasOne(OtherInfo::class);
+    }
+
+    public function family_status()
+    {
+        return $this->hasOne(FamilyStatus::class);
+    }
+
+    public function bursary()
+    {
+        return $this->hasOne(Bursary::class);
+    }
 }

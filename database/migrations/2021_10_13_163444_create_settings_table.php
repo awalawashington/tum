@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSiblingsTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateSiblingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('siblings', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('institution');
+            $table->string('name')->default('TUMSA');
+            $table->double('ammount');
             $table->timestamps();
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +28,6 @@ class CreateSiblingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siblings');
+        Schema::dropIfExists('settings');
     }
 }

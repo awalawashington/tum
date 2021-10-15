@@ -17,6 +17,8 @@ class CreateParentStatusesTable extends Migration
             $table->id();
             $table->boolean('father');
             $table->boolean('mother');
+            $table->string('father_dc')->nullable();
+            $table->string('mother_dc')->nullable();
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

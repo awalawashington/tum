@@ -15,8 +15,9 @@ class CreateBursariesTable extends Migration
     {
         Schema::create('bursaries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->double('ammount');
+            $table->double('helb');
+            $table->double('cdf');
+            $table->double('other_sponsors');
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

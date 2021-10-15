@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -26,5 +27,14 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'student/dashboard';
+
+    public function resetPasswordView(Request $request)
+    {
+        $token = $request->route()->parameter('token');
+
+        return view('students.auth.reset_password')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
 }

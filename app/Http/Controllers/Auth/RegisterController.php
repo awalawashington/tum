@@ -24,12 +24,13 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'student/dashboard';
 
     /**
      * Create a new controller instance.
@@ -41,6 +42,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function registerView()
+    {
+        return view('students.auth.register');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -50,7 +56,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'sir_name' => ['required', 'string', 'max:255'],
+            'other_names' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'numeric'],
+            'admission_number' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:255'],
+            'dob' => ['required', 'date', 'before:2005-01-01'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -65,7 +76,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'sir_name' => $data['sir_name'],
+            'other_names' => $data['other_names'],
+            'phone_number' => $data['phone_number'],
+            'admission_number' => $data['admission_number'],
+            'gender' => $data['gender'],
+            'dob' => $data['dob'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
