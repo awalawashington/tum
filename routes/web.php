@@ -57,6 +57,8 @@ Route::prefix('student')->name('student.')->group(function(){
         Route::post('/settings/profile',[SettingsController::class ,'updateProfile'])->name('settings.profile');
         Route::post('/settings/course',[CourseController::class ,'store'])->name('settings.course');
 
+        Route::view('/course','students.students.course')->name('course');
+
         Route::view('/bursary','students.students.bursary')->name('bursary');
         Route::post('/bursary/family',[FamilyStatusController::class ,'store'])->name('bursary.family');
         Route::post('/bursary/other_info',[OtherInfoController::class ,'store'])->name('bursary.other_info');

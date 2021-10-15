@@ -79,7 +79,7 @@
     <li class="nav-item dropdown pe-3">
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-        <img src="{{asset('portal/assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+        <img src="{{asset('images/profiles/'.auth()->user()->profile_photo)}}" alt="Profile" class="rounded-circle">
         <span class="d-none d-md-block dropdown-toggle ps-2">{{auth()->user()->sir_name}}</span>
       </a><!-- End Profile Iamge Icon -->
 
@@ -93,7 +93,7 @@
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+          <a class="dropdown-item d-flex align-items-center" href="{{ route('student.settings') }}">
             <i class="bi bi-person"></i>
             <span>My Profile</span>
           </a>
@@ -103,9 +103,9 @@
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+          <a class="dropdown-item d-flex align-items-center" href="{{ route('student.course') }}">
             <i class="bi bi-gear"></i>
-            <span>Account Settings</span>
+            <span>Course</span>
           </a>
         </li>
         <li>
@@ -113,9 +113,9 @@
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+          <a class="dropdown-item d-flex align-items-center" href="{{ route('student.bursary') }}">
             <i class="bi bi-question-circle"></i>
-            <span>Need Help?</span>
+            <span>Bursary</span>
           </a>
         </li>
         <li>
@@ -123,7 +123,7 @@
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="#">
+          <a class="dropdown-item d-flex align-items-center" href="{{ route('student.logout') }}">
             <i class="bi bi-box-arrow-right"></i>
             <span>Sign Out</span>
           </a>

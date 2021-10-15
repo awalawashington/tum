@@ -30,7 +30,8 @@ class SettingsController extends Controller
         $profile_photo_name = time()."_".  preg_replace('/\s+/', '_', strtolower($profile_photo->getClientOriginalName()));
 
         //move image to the temporary storage
-        $profile_photo->storeAs('profiles', $profile_photo_name);
+        $profile_photo->move(public_path('images/profiles'), $profile_photo_name);
+    
 
         $national_id = $request->file('national_id');
         //$national_id = $profile_photo->getPathName();
@@ -39,7 +40,7 @@ class SettingsController extends Controller
         $national_id_name = time()."_".  preg_replace('/\s+/', '_', strtolower($national_id->getClientOriginalName()));
 
         //move image to the temporary storage
-        $national_id->storeAs('national_id', $national_id_name);
+        $national_id->move(public_path('images/national_ids'), $national_id_name);
 
         $school_id = $request->file('school_id');
         //$school_id = $school_photo->getPathName();
@@ -48,7 +49,7 @@ class SettingsController extends Controller
         $school_id_name = time()."_".  preg_replace('/\s+/', '_', strtolower($school_id->getClientOriginalName()));
 
         //move image to the temporary storage
-        $school_id->storeAs('school_id', $school_id_name);
+        $school_id->move(public_path('images/school_ids'), $school_id_name);
 
 
 
