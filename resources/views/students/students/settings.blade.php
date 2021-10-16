@@ -60,6 +60,23 @@
 
               </ul>
               <div class="tab-content pt-2">
+              @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle me-1"></i>
+                    {{ session('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+              @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-octagon me-1"></i>
+                    {{ $error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endforeach
+              @endif
+                
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   
@@ -104,8 +121,12 @@
                     <div class="col-lg-3 col-md-4 label">Home place</div>
                     <div class="col-lg-9 col-md-8">{{auth()->user()->home_address}}</div>
                   </div>
-                    <p>{{auth()->user()->national_id}}</p>
-                    <p>{{auth()->user()->profile_photo}}</p>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Identity Document</div>
+                    <div class="col-lg-9 col-md-8">@if(auth()->user()->national_id !== NULL)<a href="{{asset('images/national_ids/'.auth()->user()->national_id)}}">DOWNLOAD HERE</a>@endif</div>
+                  </div>
+                    
 
                 </div>
                 @if(auth()->user()->national_id == NULL)
@@ -180,7 +201,8 @@
                 @endif
 
                 <div class="tab-pane fade pt-3" id="profile-settings">
-                  @if(auth()->user()->course() == NULL)
+                @if(auth()->user()->national_id !== NULL)
+                  @if(auth()->user()->course == NULL)
                   <p class="small fst-italic">Kindly take your time and give us the correct information</p>
                   <!-- Settings Form -->
                   <form action="{{ route('student.settings.course') }}" method="post" enctype="multipart/form-data" >
@@ -188,7 +210,7 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Faculty</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="faculty" type="text" class="form-control" id="fullName" >
+                        <input name="faculty" type="text" class="form-control" id="fullName" required>
                       </div>
                       @error('faculty')
                           <div class="my-3">
@@ -201,7 +223,7 @@
                     <div class="row mb-3">
                       <label for="company" class="col-md-4 col-lg-3 col-form-label">Department</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="department" type="text" class="form-control" id="company" >
+                        <input name="department" type="text" class="form-control" id="company" required>
                       </div>
                       @error('department')
                           <div class="my-3">
@@ -213,7 +235,7 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Course</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="course" type="text" class="form-control" id="fullName" >
+                        <input name="course" type="text" class="form-control" id="fullName" required>
                       </div>
                       @error('course')
                           <div class="my-3">
@@ -223,11 +245,20 @@
                     </div>
 
 
-                    <div class="row mb-3">
+                 
+                      <div class="row mb-3">
                       <label for="company" class="col-md-4 col-lg-3 col-form-label">Year of study</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="year" type="text" class="form-control" id="company" >
-                      </div>
+                        <div class="col-md-8 col-lg-9">
+                          <select class="form-select"  name="year" aria-label="Default select example" required>
+                            <option value="">Select year of study</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="5">Six</option>
+                          </select>
+                        </div>
                       @error('year')
                           <div class="my-3">
                               <div class="text-danger">{{ $message }}</div>
@@ -236,10 +267,14 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Semister</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="semister" type="text" class="form-control" id="company" >
-                      </div>
+                    <label for="company" class="col-md-4 col-lg-3 col-form-label">Semister</label>
+                        <div class="col-md-8 col-lg-9">
+                          <select class="form-select"  name="semister" aria-label="Default select example" required>
+                            <option value="">Semister</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                          </select>
+                        </div>
                       @error('semister')
                           <div class="my-3">
                               <div class="text-danger">{{ $message }}</div>
@@ -252,7 +287,7 @@
                     </div>
                   </form><!-- End settings Form -->
                 @else
-                <h5 class="card-title">Corse Information</h5>
+                <h5 class="card-title">Course Information</h5>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label ">Faculty</div>
@@ -273,6 +308,11 @@
                   <div class="col-lg-3 col-md-4 label">Academic year</div>
                   <div class="col-lg-9 col-md-8">{{auth()->user()->course->year}}.{{auth()->user()->course->semister}}</div>
                 </div>
+                @endif
+
+                @else
+                 Kindly update your Profile Information in the profile tab  before coming to this step
+                 
                 @endif
                 </div>
 
@@ -307,7 +347,7 @@
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="password_confirmation" type="password" class="form-control" id="renewPassword">
                       </div>
                     </div>
 
@@ -328,4 +368,5 @@
     </section>
 
   </main><!-- End #main -->
+  @include('layouts.portal.footer')
 @endsection

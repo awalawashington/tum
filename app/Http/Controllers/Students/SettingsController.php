@@ -53,10 +53,9 @@ class SettingsController extends Controller
             "profile_photo" => $profile_photo_name,
             "national_id" => $national_id_name
         ]);
-
-        return response()->json(
-            ['message' => 'Profile successfully updated'], 200
-        );
+        
+        return redirect()->route('student.settings')->with('success','Succesfully updated your profile information. Proceed to the Course Information tab and fill the form before applying for bursary');
+        
 
     }
 
@@ -86,9 +85,7 @@ class SettingsController extends Controller
                 "password" => bcrypt($request->password) 
             ]);
 
-            return response()->json(
-                ['message' => 'Password successfully updated'], 200
-            );
+            return redirect()->route('student.settings')->with('success','Password changed successfully');
 
     }
 

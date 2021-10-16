@@ -102,15 +102,6 @@
           <hr class="dropdown-divider">
         </li>
 
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="{{ route('student.course') }}">
-            <i class="bi bi-gear"></i>
-            <span>Course</span>
-          </a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
 
         <li>
           <a class="dropdown-item d-flex align-items-center" href="{{ route('student.bursary') }}">

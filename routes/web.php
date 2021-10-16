@@ -38,13 +38,18 @@ Route::prefix('student')->name('student.')->group(function(){
         Route::view('/login','students.auth.login')->name('login');
         Route::post('/login',[LoginController::class ,'studentLogin']);
 
-        Route::view('/register','students.auth.register')->name('register');
+        Route::get('/register/step-1',[RegisterController::class ,'request_otp_view'])->name('register.step-1');
+        Route::post('/register/step-1',[RegisterController::class ,'request_otp']);
+        Route::get('/register/step-2',[RegisterController::class ,'verify_otp_view'])->name('register.step-2');
+        Route::post('/register/step-2',[RegisterController::class ,'verify_otp']);
+        Route::get('/register',[RegisterController::class ,'registerView'])->name('register');
         Route::post('/register',[RegisterController::class ,'register']);
 
-        Route::view('/password/email','students.auth.forgot_password');
-        Route::post('/password/email',[ForgotPasswordController::class ,'sendResetLinkEmail'])->name('password.email');
-
-        Route::get('/password/reset/{token}', [ResetPasswordController::class, 'resetPasswordView'])->name('password.reset');
+        Route::get('/password/email',[ForgotPasswordController::class ,'request_otp_view'])->name('password.email');
+        Route::post('/password/email',[ForgotPasswordController::class ,'request_otp']);
+        Route::get('/password/verify',[ForgotPasswordController::class ,'verify_otp_view'])->name('password.verify');
+        Route::post('/password/verify',[ForgotPasswordController::class ,'verify_otp']);
+        Route::get('/password/reset',[ResetPasswordController::class ,'resetPasswordView'])->name('password.reset');
         Route::post('/password/reset',[ResetPasswordController::class ,'reset']);
     });
 

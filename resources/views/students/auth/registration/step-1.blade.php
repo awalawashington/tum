@@ -25,8 +25,8 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your email & password to login</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Step 1</h5>
+                    <p class="text-center small">Enter your email</p>
                   </div>
                   @if (session('fail'))
                   <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -35,7 +35,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                   @endif
-                  <form action="{{ route('student.login') }}" method="post" class="row g-3 needs-validation" novalidate>
+                  <form action="{{ route('student.register.step-1') }}" method="post" class="row g-3 needs-validation" novalidate>
                   @csrf
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Email</label>
@@ -50,18 +50,10 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <button class="btn btn-primary w-100" type="submit">Next</button>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="{{ route('student.register.step-1') }}">Create an account</a></p>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0"><a href="{{ route('student.password.email') }}">Forgot password?</a></p>
+                      <p class="small mb-0">Already got accout? Login <a href="{{ route('student.login') }}">Create an account</a></p>
                     </div>
                   </form>
 

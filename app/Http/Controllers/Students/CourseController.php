@@ -30,9 +30,7 @@ class CourseController extends Controller
 
         ]);
 
-        return response()->json(
-            ['message' => 'Course successfully updated'], 200
-        );
+        return redirect()->route('student.settings')->with('success','Succesfully submitted your course information.');
 
     }
 

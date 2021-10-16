@@ -29,6 +29,7 @@
   <!-- Template Main CSS File -->
    
   <link href="{{asset('portal/assets/css/style.css')}}" rel="stylesheet">
+  
   @yield('content')
 
    

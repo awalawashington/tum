@@ -14,8 +14,8 @@
             <div class="col-lg-6 col-md-8 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.png" alt="">
+                <a href="/" class="logo d-flex align-items-center w-auto">
+                <img src="{{asset('portal/assets/img/logo.png')}}" alt="">
                   <span class="d-none d-lg-block">TUMSA</span>
                 </a>
               </div><!-- End Logo -->
@@ -30,6 +30,7 @@
                   </div>
                   <form action="{{ route('student.register') }}" method="post" class="row g-3 needs-validation" novalidate>
                   @csrf
+                  <input type="hidden" name="email"  value="{{ session('email') }}" required>
                   <div class="row">
                     <div class="col-lg-6">
                       <label for="yourUsername" class="form-label">Sir Name</label>
@@ -56,12 +57,12 @@
 
                   <div class="row">
                     <div class="col-lg-6">
-                      <label for="yourUsername" class="form-label">Email</label>
+                      <label for="yourUsername" class="form-label">Admission Number</label>
                       <div class="input-group has-validation">
-                        <input type="email" name="email" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your email</div>
+                        <input type="text" name="admission_number" class="form-control" id="yourUsername"  required>
+                        <div class="invalid-feedback">Please enter your admission number</div>
                       </div>
-                      @error('email')
+                      @error('admission_number')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -77,27 +78,19 @@
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Admission Number</label>
-                      <div class="input-group has-validation">
-                        <input type="text" name="admission_number" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your Admission Number</div>
-                      </div>
-                      @error('admission_number')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                  </div>
                    
                   <div class="row">
                     <div class="col-lg-6">
-                      <label for="yourUsername" class="form-label">Gender</label>
-                      <div class="input-group has-validation">
-                        <input type="text" name="gender" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please select you gender</div>
+                    <label for="yourUsername" class="form-label">Gender</label>
+                      <div class="col-sm-10">
+                        <select class="form-select" aria-label="Default select example" name="gender" required>
+                          <option value="">Gender</option>
+                          <option value="Female">Female</option>
+                          <option value="Male">Male</option>
+                        </select>
                       </div>
-                      @error('email')
+                      <div class="invalid-feedback">Please select you gender</div>
+                      @error('gender')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -147,7 +140,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="https://www.facebook.com/awalatechincorporation">AwalaTech Incorporation</a>
+              Developed by <a href="https://www.facebook.com/awalatechincorporation">AwalaTech Incorporation</a>
               </div>
 
             </div>

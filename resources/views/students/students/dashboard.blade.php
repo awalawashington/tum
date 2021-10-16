@@ -38,8 +38,25 @@
                       <i class="bi bi-card-list"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>0%</h6>
-                      <span class="text-danger small pt-1 fw-bold">COMPLETE</span>
+                      <h6>
+                        @if(auth()->user()->national_id == NULL)
+                          70%
+                        @else
+                          100%
+                        @endif
+                      </h6>
+                     
+                        @if(auth()->user()->national_id == NULL)
+                        <a href="{{route('student.settings')}}" class="text-danger small pt-1 fw-bold">
+                          Update here to make 100%
+                        </a>
+                        @else
+                        <span href="{{route('student.settings')}}" class="text-success small pt-1 fw-bold">
+                          COMPLETE
+                        </span>
+                        @endif
+                        
+                      
 
                     </div>
                   </div>
@@ -61,8 +78,24 @@
                       <i class="bi bi-card-list"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>50%</h6>
-                      <span class="text-danger small pt-1 fw-bold">COMPLETE</span>
+                    @if(auth()->user()->course == NULL)
+                      <h6>0%</h6>
+
+                    @else
+                    <h6>100%</h6>
+                    @endif
+
+                      @if(auth()->user()->course == NULL)
+                        <a href="{{route('student.settings')}}" class="text-danger small pt-1 fw-bold">
+                           Kindly provide course info
+                        </a>
+                        @else
+                        <span href="{{route('student.settings')}}" class="text-success small pt-1 fw-bold">
+                          COMPLETE
+                        </span>
+                        @endif
+                    
+                      
 
                     </div>
                   </div>
@@ -85,8 +118,27 @@
                       <i class="bi bi-card-list"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>10%</h6>
-                      <span class="text-danger small pt-1 fw-bold">COMPLETE</span>
+                    @if(auth()->user()->parent_status == NULL )
+                    <h6>0%</h6>
+                    @elseif(auth()->user()->other_info == NULL)
+                    <h6>40%</h6>
+                    @elseif(auth()->user()->tumsa_bursary == NULL)
+                    <h6>80%</h6>
+                    @else
+                    <h6>100%</h6>
+                    @endif
+
+                    @if(auth()->user()->parent_status == NULL)
+                    <span class="text-danger small pt-1 fw-bold">COMPLETE</span>
+                    @elseif(auth()->user()->other_info == NULL)
+                    <span class="text-danger small pt-1 fw-bold">COMPLETE</span>
+                    @elseif(auth()->user()->tumsa_bursary == NULL)
+                    <span class="text-danger small pt-1 fw-bold">COMPLETE</span>
+                    @else
+                    <span class="text-success small pt-1 fw-bold">APPLIED</span>
+                    @endif
+                      
+                      
 
                     </div>
                   </div>
@@ -134,7 +186,7 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Recent Activities <span>| Today</span></h5>
+                  <h5 class="card-title">Recent Activities <span>|@if(auth()->user()->tumsa_bursary !== NULL) {{auth()->user()->tumsa_bursary->created_at->diffForHumans();}} @endif</span></h5>
 
                   <table class="table table-borderless datatable">
                     <thead>
@@ -142,12 +194,20 @@
                         <th scope="col">#</th>
                         <th scope="col">Category</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">Details</th>
                         <th scope="col">Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                     
+                    @if(auth()->user()->tumsa_bursary !== NULL)
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Bursary</td>
+                        <td><a href="#" class="text-primary">Application</a></td>
+                        <td>{{auth()->user()->tumsa_bursary->ammount_requested}}/=</td>
+                        <td><span class="badge bg-success">Under Review</span></td>
+                      </tr>
+                    @endif
                       
                     </tbody>
                   </table>
@@ -192,7 +252,7 @@
                   <div class="activite-label">Step 3</div>
                   <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
                   <div class="activity-content">
-                    Provide your family information(Death certificate is required as a proof of death of parent)
+                    Provide your family information
                   </div>
                 </div><!-- End activity item-->
 
@@ -232,7 +292,7 @@
     </section>
 
   </main><!-- End #main -->
-
+@include('layouts.portal.footer')
 @endsection
 
 

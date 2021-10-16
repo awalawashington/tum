@@ -34,6 +34,6 @@ class OtherInfoController extends Controller
 
         ]);
 
-        dd($request->all());
+        return redirect()->route('student.bursary')->with('success','Succesfully uploaded your information, Proceed to apply for TUMSA Bursrary');
     }
 }
