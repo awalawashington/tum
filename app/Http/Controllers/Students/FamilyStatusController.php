@@ -48,13 +48,19 @@ class FamilyStatusController extends Controller
 
 
         if ($request->father == FALSE) {
-            $father_dc = $request->file('father_dc');
-            $father_dc_name = time()."_".  preg_replace('/\s+/', '_', strtolower($father_dc->getClientOriginalName()));
-            $father_dc->storeAs('dc/mother', $father_dc_name);
+            if(!empty($request->file('father_dc'))){
+                $father_dc = $request->file('father_dc');
+                $father_dc_name = time()."_".  preg_replace('/\s+/', '_', strtolower($father_dc->getClientOriginalName()));
+                $father_dc->storeAs('dc/mother', $father_dc_name);
 
-            $parent_status->update([
-                'father_dc' => $father_dc_name,
-            ]);
+                $parent_status->update([
+                    'father_dc' => $father_dc_name,
+                ]);
+                }else{
+                    $parent_status->update([
+                    'father_dc' => NULL,
+                    ]);
+            }
         }else{
             $family_status->update([
                 "father_occupation" => $request->father_occupation,
@@ -63,13 +69,19 @@ class FamilyStatusController extends Controller
         }
 
         if ($request->mother == FALSE) {
-            $mother_dc = $request->file('mother_dc');
-            $mother_dc_name = time()."_".  preg_replace('/\s+/', '_', strtolower($mother_dc->getClientOriginalName()));
-            $mother_dc->storeAs('dc/father', $mother_dc_name);
+            if(!empty($request->file('mother_dc'))){
+                $mother_dc = $request->file('mother_dc');
+                $mother_dc_name = time()."_".  preg_replace('/\s+/', '_', strtolower($mother_dc->getClientOriginalName()));
+                $mother_dc->storeAs('dc/father', $mother_dc_name);
 
-            $parent_status->update([
-                'mother_dc' => $mother_dc_name,
-            ]);
+                $parent_status->update([
+                    'mother_dc' => $mother_dc_name,
+                ]);
+                }else{
+                    $parent_status->update([
+                        'mother_dc' => NULL,
+                    ]);
+                }
         }else{
             $family_status->update([
                 "mother_occupation" => $request->mother_occupation,

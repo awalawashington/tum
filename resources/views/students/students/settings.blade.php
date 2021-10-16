@@ -62,7 +62,7 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-
+                  
                   <h5 class="card-title">Profile Details</h5>
 
                   <div class="row">
@@ -104,14 +104,13 @@
                     <div class="col-lg-3 col-md-4 label">Home place</div>
                     <div class="col-lg-9 col-md-8">{{auth()->user()->home_address}}</div>
                   </div>
-                    <p>{{auth()->user()->school_id}}</p>
                     <p>{{auth()->user()->national_id}}</p>
                     <p>{{auth()->user()->profile_photo}}</p>
 
                 </div>
-
+                @if(auth()->user()->national_id == NULL)
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
+                  <p class="small fst-italic">Kindly take your time and give us the correct information</p>
                   <!-- Profile Edit Form -->
 
                   <form action="{{ route('student.settings.profile') }}" method="post" enctype="multipart/form-data" >
@@ -132,7 +131,7 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">National ID/Passport/Birth Certificate(COMPULSORY!)</label>
+                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">School ID/National ID/Birth Certificate(COMPULSORY!)</label>
                       <div class="col-md-8 col-lg-9">
                         <div class="pt-2">
                         <input type="file" name="national_id"  />
@@ -145,19 +144,7 @@
                         @enderror
                     </div>
 
-                    <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">School ID/ Any document to prove you are a student</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="pt-2">
-                        <input type="file" name="school_id"  />
-                        </div>
-                      </div>
-                      @error('school_id')
-                            <div class="my-3">
-                                <div class="text-danger">{{ $message }}</div>
-                            </div>
-                      @enderror
-                    </div>
+                  
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Residence</label>
@@ -190,8 +177,11 @@
                   </form><!-- End Profile Edit Form -->
 
                 </div>
+                @endif
 
                 <div class="tab-pane fade pt-3" id="profile-settings">
+                  @if(auth()->user()->course() == NULL)
+                  <p class="small fst-italic">Kindly take your time and give us the correct information</p>
                   <!-- Settings Form -->
                   <form action="{{ route('student.settings.course') }}" method="post" enctype="multipart/form-data" >
                   @csrf
@@ -261,7 +251,29 @@
                       <button type="submit" class="btn btn-primary">Upload</button>
                     </div>
                   </form><!-- End settings Form -->
+                @else
+                <h5 class="card-title">Corse Information</h5>
 
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label ">Faculty</div>
+                  <div class="col-lg-9 col-md-8">{{auth()->user()->course->faculty}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Department</div>
+                  <div class="col-lg-9 col-md-8">{{auth()->user()->course->department}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Course</div>
+                  <div class="col-lg-9 col-md-8">{{auth()->user()->course->course}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Academic year</div>
+                  <div class="col-lg-9 col-md-8">{{auth()->user()->course->year}}.{{auth()->user()->course->semister}}</div>
+                </div>
+                @endif
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">

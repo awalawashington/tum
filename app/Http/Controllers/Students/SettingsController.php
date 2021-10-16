@@ -19,7 +19,6 @@ class SettingsController extends Controller
             "residence" => 'required|string',
             "home_address" => 'required|string',
             'profile_photo' => ['required', 'mimes:jpeg,gif,bmp,png', 'max:2048'],
-            'school_id' => ['required', 'mimes:jpeg,gif,bmp,png,pdf', 'max:2048'],
             'national_id' => ['required', 'mimes:jpeg,gif,bmp,png,pdf', 'max:2048']
         ]);
 
@@ -42,14 +41,7 @@ class SettingsController extends Controller
         //move image to the temporary storage
         $national_id->move(public_path('images/national_ids'), $national_id_name);
 
-        $school_id = $request->file('school_id');
-        //$school_id = $school_photo->getPathName();
-
-        //get the original file name and replace any spaces with _
-        $school_id_name = time()."_".  preg_replace('/\s+/', '_', strtolower($school_id->getClientOriginalName()));
-
-        //move image to the temporary storage
-        $school_id->move(public_path('images/school_ids'), $school_id_name);
+        
 
 
 
@@ -59,7 +51,6 @@ class SettingsController extends Controller
             "residence" => $request->residence,
             "home_address" => $request->home_address,
             "profile_photo" => $profile_photo_name,
-            "school_id" => $school_id_name,
             "national_id" => $national_id_name
         ]);
 
