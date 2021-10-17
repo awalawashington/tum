@@ -18,7 +18,7 @@ class TumsaBursaryController extends Controller
 
         $fee_statement = $request->file('fee_statement');
         $fee_statement_name = time()."_".  preg_replace('/\s+/', '_', strtolower($fee_statement->getClientOriginalName()));
-        $fee_statement->move(public_path('images/bursary/satements'), $fee_statement_name);
+        $fee_statement->move(public_path('portal/images/bursary/satements'), $fee_statement_name);
         
 
         $user->tumsa_bursary()->create([

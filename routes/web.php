@@ -30,6 +30,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/executives', function () {
+    return view('executives');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
 
 
 Route::prefix('student')->name('student.')->group(function(){

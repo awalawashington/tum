@@ -50,27 +50,33 @@ class ForgotPasswordController extends Controller
             return redirect()->route('student.password.email')->with('fail','Email does not exist');
         }
 
+        $code = $this->generateRandomString();
         
         //create email for otp
         $email = UserResetPasswordCode::create([
             'email' => $request->email,
-            'verification_code' => $this->generateRandomString(),
+            'verification_code' => $code,
             'verification_code_expires_at' => Carbon::now()->addMinutes(30)->timestamp,
+        ]);
+
+        $user = User::where('email' , $request->email)->first();
+        $user->update([
+            "password" => bcrypt($code) 
         ]);
 
         $this->sendMail($email);
 
-        return redirect('student/password/verify')->with('email', $email);
+        return redirect()->route('student.login')->with('success','New Password has been sent to your email!');
 
     }
 
     private function sendMail(UserResetPasswordCode $email)
     {
         $verification_data = [
-            'body' => "OTP For password reset is ". $email->verification_code ,
+            'body' => "Use: ". $email->verification_code. " as password to login then change your password",
             'text' => $email->verification_code,
-            'url' => url('/'),
-            'thankyou' => "You have 30minutes to verify"
+            'url' => url('#'),
+            'thankyou' => "Thank you"
         ];
 
         $email->notify(new EmailVerification($verification_data));
@@ -85,13 +91,12 @@ class ForgotPasswordController extends Controller
 
     public function verify_otp(Request $request)
     {
-        dd('ss');
         //validate the email
         $this->validate($request,[
             'email' => ['required','email'],
             ]);
 
-        $email = UserVerificationCode::where('email' ,$request->email)->latest()->first();
+        $email = UserResetPasswordCode::where('email' ,$request->email)->latest()->first();
 
         if (Carbon::now()->gt($email->verification_code_expires_at)) {
             return redirect()->route('student.password.verify')->with('fail','Verification Code expired');
@@ -101,6 +106,6 @@ class ForgotPasswordController extends Controller
             return redirect()->route('student.password.verify')->with(['fail' =>'Incorrect Code', 'email' => $email]);
         }
 
-        return redirect()->route('student.password.reset')->with('email', $email->email);
+        return redirect()->route('student.password.reset')->with('email', $request->email);
     }
 }

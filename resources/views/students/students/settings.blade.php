@@ -27,7 +27,7 @@
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-              <img src="{{asset('images/profiles/'.auth()->user()->profile_photo)}}" alt="Profile" class="rounded-circle">
+              <img src="{{asset('portal/images/profiles/'.auth()->user()->profile_photo)}}" alt="Profile" class="rounded-circle">
               <h2>{{auth()->user()->sir_name}}. {{auth()->user()->other_names}}</h2>
               <h3>{{auth()->user()->admission_number}}</h3>
             </div>
@@ -124,7 +124,7 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Identity Document</div>
-                    <div class="col-lg-9 col-md-8">@if(auth()->user()->national_id !== NULL)<a href="{{asset('images/national_ids/'.auth()->user()->national_id)}}">DOWNLOAD HERE</a>@endif</div>
+                    <div class="col-lg-9 col-md-8">@if(auth()->user()->national_id !== NULL)<a href="{{asset('portal/images/national_ids/'.auth()->user()->national_id)}}">DOWNLOAD HERE</a>@endif</div>
                   </div>
                     
 

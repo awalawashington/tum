@@ -25,7 +25,7 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Step 1</h5>
+                    <h5 class="card-title text-center pb-0 fs-4">Register to Apply for Bursary</h5>
                     <p class="text-center small">Enter your email</p>
                   </div>
                   @if (session('fail'))

@@ -35,6 +35,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                   @endif
+                  @if (session('success'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-1"></i>
+                        {{ session('success') }}!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  @endif
                   <form action="{{ route('student.login') }}" method="post" class="row g-3 needs-validation" novalidate>
                   @csrf
                     <div class="col-12">

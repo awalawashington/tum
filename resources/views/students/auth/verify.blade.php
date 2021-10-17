@@ -35,13 +35,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                   @endif
-                  <form action="{{ route('student.password.email') }}" method="post" class="row g-3 needs-validation" novalidate>
+                  <form action="{{ route('student.password.verify') }}" method="post" class="row g-3 needs-validation" novalidate>
                   @csrf
                   <input type="hidden" name="email" value="{{ session('email')->email }}">
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Verification Code</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="verification_code" class="form-control" id="yourUsername" required>
+                        <input type="text" name="verification_code" class="form-control" value="{{ session('email')->verification_code }}" required>
                         <div class="invalid-feedback">Please enter code sent to your email</div>
                       </div>
                       @error('verification_code')

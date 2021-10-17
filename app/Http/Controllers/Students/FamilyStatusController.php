@@ -51,7 +51,7 @@ class FamilyStatusController extends Controller
             if(!empty($request->file('father_dc'))){
                 $father_dc = $request->file('father_dc');
                 $father_dc_name = time()."_".  preg_replace('/\s+/', '_', strtolower($father_dc->getClientOriginalName()));
-                $father_dc->move(public_path('images/dc/mother'), $father_dc_name);
+                $father_dc->move(public_path('portal/images/dc/mother'), $father_dc_name);
 
                 $parent_status->update([
                     'father_dc' => $father_dc_name,
@@ -72,7 +72,7 @@ class FamilyStatusController extends Controller
             if(!empty($request->file('mother_dc'))){
                 $mother_dc = $request->file('mother_dc');
                 $mother_dc_name = time()."_".  preg_replace('/\s+/', '_', strtolower($mother_dc->getClientOriginalName()));
-                $mother_dc->move(public_path('images/dc/mother'), $mother_dc_name);
+                $mother_dc->move(public_path('portal/images/dc/mother'), $mother_dc_name);
 
                 $parent_status->update([
                     'mother_dc' => $mother_dc_name,
